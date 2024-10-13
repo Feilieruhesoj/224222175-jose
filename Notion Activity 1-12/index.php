@@ -20,11 +20,9 @@
 <h1>Activity 2</hp>
     <?php
         $correctPassword = "password123";
-        $inputPassword = "";
+        $inputPassword = "password123";
 
         do {
-            $inputPassword = readline("Please enter your password: ");
-
             if ($inputPassword !== $correctPassword) {
                 echo "Incorrect password. Try again.\n";
             }else{
