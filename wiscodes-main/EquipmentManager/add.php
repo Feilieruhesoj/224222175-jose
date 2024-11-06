@@ -5,9 +5,9 @@
         $category = $_POST['category'];
         $name = $_POST['name'];
         $serial_number = $_POST['serial_number'];
-        $price = (float) $_POST['price'];
+        $price = $_POST['price'];
         
-        if (!empty($category) && !empty($name) && !empty($serial_number) && !isset($price)) {
+        if (!empty($category) && !empty($name) && !empty($serial_number) && !empty($price)) {
             $sql = "INSERT INTO equipment (category, name, serial_number, price) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sssd", $category, $name, $serial_number, $price);
@@ -23,6 +23,8 @@
         }
     }
 ?>
+
+<!-- Rest of the add.php code remains the same -->
 
 
 
@@ -48,7 +50,7 @@
         <label>Serial Number:</label><br>
         <input type="text" name="serial_number"><br>
         <label>Price:</label><br>
-        <input type="number" name="price"><br><br>
+        <input type="number" name="price" step="0.01" value="<?php echo $price; ?>"><br><br>
         <input type="submit" value="Add Equipment">
     </form>
 

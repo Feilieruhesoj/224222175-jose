@@ -12,7 +12,7 @@
             $category =$row ['category'];
             $name= $row ['name'];
             $serial_number = $row ['serial_number'];
-            $price = (float) $row['price'];
+            $price = $row ['price'];
         }
         else {
             echo "No equipment found with that id";
@@ -24,14 +24,14 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     $category=$_POST['category'];
     $name=$_POST['name'];
     $serial_number=$_POST['serial_number'];
-    $price=(float) $_POST['price'];
+    $price=$_POST['price'];
     $id=$_POST['id'];
 
 
-    if (!empty($category) && !empty($name) && !empty($serial_number) && !isset($price)) {
+    if (!empty($category) && !empty($name) && !empty($serial_number) && !empty($price)){
         $sql="UPDATE equipment SET category=?, name=?, serial_number=?, price=? WHERE id=?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssdf", $category, $name, $serial_number, $price, $id);
+        $stmt->bind_param("sssdi", $category, $name, $serial_number, $price, $id);
 
         if ($stmt->execute() === TRUE) {
             echo "Equipment successfully updated.";
@@ -43,6 +43,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     }
 }
 ?>
+
+<!-- Rest of the edit.php code remains the same -->
 
 
 
@@ -63,7 +65,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         Category: <input type="text" name="category" value="<?php echo $category; ?>"><br><br>
         Name: <input type="text" name="name" value="<?php echo $name; ?>"><br><br>
         Serial Number: <input type="text" name="serial_number" value="<?php echo $serial_number; ?>"><br><br>
-        Price: <input type="number" name="price" value="<?php echo $price; ?>"><br><br>
+        <label>Price:</label><br>
+    <input type="number" name="price" step="0.01" value="<?php echo $price; ?>"><br><br>
         <input type="submit" value="Update Equipment">
     </form>
     <a href="index.php">Back to Equipment List</a>
